@@ -1,51 +1,59 @@
 # Hello stack
 
-A local full-stack check for an interview laptop. The page is the frontend. `GET /api/hello` is the backend. Open the app, and the page asks the API, then prints the reply.
+A local FastAPI + React check for an interview laptop. The Vite app is the frontend. FastAPI is the backend. Open the page, ask the API, and the reply should show up in the backend card.
 
 No deploy, no database, and no extra accounts.
 
 ## Run
 
-You need Node.js 20 or newer.
+You need Node.js 20 or newer, and Python 3.11 or newer. Both are already installed on this machine, and the dependencies are already installed in `frontend/node_modules` and `backend/.venv`.
 
 ```bash
-npm install
 npm run dev
 ```
 
-Open [http://127.0.0.1:43123](http://127.0.0.1:43123).
+That starts both processes:
 
-You should see two cards. The frontend card already says `Hello from the frontend.` The backend card waits until you ask.
+- API: [http://127.0.0.1:8000](http://127.0.0.1:8000) (`GET /api/hello`, interactive docs at `/docs`)
+- Web: [http://127.0.0.1:5173](http://127.0.0.1:5173)
 
-Choose **Ask the backend**. The backend card should say `Hello from the backend.` and show the Node version, the round trip, and the time of the reply.
+You should see two cards. The frontend card already says `Hello from the frontend.` Choose **Ask the backend**. The backend card should say `Hello from the backend.`
 
-Type a name and ask again. The card should change to `Hello, <name>. The backend is up.` **Show the error state** hits a route that does not exist, so you can see the failure UI, then recover with **Try the backend again**.
+Type a name and ask again. The card should change to `Hello, <name>. The backend is up.`
 
 Check the API on its own:
 
 ```bash
-curl -s http://127.0.0.1:43123/api/hello
-curl -s "http://127.0.0.1:43123/api/hello?name=Ada"
+curl -s http://127.0.0.1:8000/api/hello
+curl -s "http://127.0.0.1:8000/api/hello?name=Ada"
 ```
+
+The page calls `/api/hello` on the Vite dev server. Vite proxies that path to FastAPI, so the browser stays on port 5173.
 
 ## Where the code lives
 
 | Piece | File |
 | --- | --- |
-| Frontend page | `src/app/page.tsx` |
-| Backend | `src/app/api/hello/route.ts` |
-| Greeting | `src/lib/hello.ts` |
+| Frontend page | `frontend/src/App.tsx` |
+| Vite proxy | `frontend/vite.config.ts` |
+| Backend | `backend/app/main.py` |
+| Python packages | `backend/requirements.txt` |
 
-The stack is Next.js, React, TypeScript, and Tailwind.
+## Install again
+
+Only needed on a new machine, or after deleting `node_modules` or `backend/.venv`.
+
+```bash
+npm install
+npm install --prefix frontend
+python3 -m venv backend/.venv
+backend/.venv/bin/pip install -r backend/requirements.txt
+```
 
 ## Before the interview
 
-This repo is the hello-world the brief asks you to confirm. On the computer you will actually share:
-
-1. Share your **full screen** in Google Meet, and turn **Google Meet filters off**, or they will not be able to proceed.
-2. From this folder, run `npm run dev`, load the page, and choose **Ask the backend**. Both cards should say hello before you join.
-3. Node.js 20+, Git, and a GitHub account signed in on that terminal. `node -v` should print v20 or higher. `git --version` should print. If you use the GitHub CLI, `gh auth status` should succeed.
-4. Cursor, Claude Code, Codex, or Copilot installed and signed in. You will be expected to use it.
-5. A current Chrome, Safari, or Firefox, and a stable connection.
-
-Nothing in this project needs to be deployed.
+1. Share your **full screen** in Google Meet, and turn **Google Meet filters off**.
+2. From this folder, run `npm run dev`, open [http://127.0.0.1:5173](http://127.0.0.1:5173), and choose **Ask the backend**.
+3. `node -v` should print v20 or higher. `git --version` should print. `gh auth status` should show you logged in.
+4. Cursor is already the editor for this folder. Stay signed in.
+5. Use Chrome or Safari. Nothing in this project needs to be deployed.
