@@ -1,0 +1,40 @@
+---
+description: Workflow for this time-boxed full-stack project
+alwaysApply: true
+---
+
+## Project
+- Frontend: React + TypeScript in frontend/.
+- Backend: Python + FastAPI in backend/.
+- Inspect existing code and scripts before making changes.
+- Use SQLite when persistent storage is part of the agreed scope.
+- Preserve the existing development startup workflow.
+
+## Planning
+- Base the plan on the agreed requirements.
+- Identify assumptions and ambiguities that affect user-visible behavior.
+- Keep the plan concise, with a data model and API contract.
+- Use a compact Mermaid diagram when useful.
+- Save the plan and milestone checklist in plan/implementation.md.
+
+## Implementation
+- Implement one agreed milestone at a time.
+- Prefer small, complete user flows and minimal dependencies.
+- For backend behavior, write focused tests before implementation
+  when the expected behavior is clear.
+- Confirm tests fail for the expected reason, then implement and rerun.
+- Use an isolated test database; never reset application data for tests.
+- Run relevant existing tests after changes.
+- Verify UI behavior in the browser when tools are available.
+- Pause after each milestone for my review.
+
+## Debugging and verification
+- Reproduce failures and inspect evidence before changing code.
+- Add regression coverage for bugs where practical.
+- Report exactly which checks ran and their results.
+- Clearly distinguish verified behavior from assumptions.
+
+## Documentation
+- Keep doc/summary.md concise and update it at milestone boundaries.
+- Keep installation and startup instructions in README.md.
+- Do not add features outside the agreed scope.
